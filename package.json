@@ -1,0 +1,35 @@
+{
+  "name": "selection-committee",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "prod": "cross-env NODE_ENV=production node app.js",
+    "start": "node dist/server.js",
+    "dev": "cross-env NODE_ENV=development ts-node src/server.ts",
+    "client": "npm run start --prefix client",
+    "client:install": "npm install --prefix client",
+    "client:build": "npm run build --prefix client",
+    "dev-full": "cross-env NODE_ENV=development concurrently \"npm run dev\" \"npm run client\"",
+    "nodemon": "nodemon"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@types/express": "^4.17.12",
+    "@types/mongoose": "^5.11.97",
+    "@types/multer": "^1.4.6",
+    "body-parser": "^1.19.0",
+    "convert-excel-to-json": "^1.7.0",
+    "express": "^4.17.1",
+    "mongoose": "^5.12.14",
+    "multer": "^1.4.2",
+    "ts-node": "^10.0.0",
+    "typescript": "^4.3.4"
+  },
+  "devDependencies": {
+    "concurrently": "^6.2.0",
+    "cross-env": "^7.0.3",
+    "nodemon": "^2.0.7"
+  }
+}
