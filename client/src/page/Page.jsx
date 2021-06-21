@@ -1,18 +1,23 @@
 import React from 'react';
 import {FullPageWrapper} from "../hoc/fullPageWrapper";
-import PageOne from "../Components/slidesDown/PageOne";
+import HeaderPage from "../Components/HeaderPage"
+import {useSelector} from "react-redux";
 
 function Page({stateHandler}){
     React.useEffect(()=>{
         stateHandler();
     }, [])
+
+    const items = useSelector(({program})=> program.items);
+    console.log(items);
     return(
         <>
             <div className="App">
                 <FullPageWrapper>
-                    <PageOne content={'Ну как ono lol?'}/>
-                    <PageOne content={'Кайф имеешь?'}/>
-                    <PageOne content={'и я не имею'}/>
+                    <HeaderPage
+                        instituteName={items.instituteShortName}
+                        programName={items.programFullName}
+                    />
                 </FullPageWrapper>
             </div>
         </>

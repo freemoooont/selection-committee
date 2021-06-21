@@ -10,7 +10,6 @@ export const fetchProgram = (programName) => dispatch => {
 };
 
 export const setProgram = (items) => {
-
     return({
         type: 'SET_PROGRAM',
         payload: items.data
