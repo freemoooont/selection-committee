@@ -1,10 +1,37 @@
-import {Request, Response} from 'express';
-import {fileToJson} from '../utils/Jsonizer';
-import {ProgramModel} from "../database/model/Program";
+import express, {Response} from "express";
+import {ProgramModel} from "../../database/model/Program";
+import {fileToJson} from "../../utils/Jsonizer";
 
+const router = express.Router();
 
-class UploadExcelController {
-    async upload(req: Request, res: Response): Promise<void>{
+router.get(
+    '/',
+    async (req: any, res: Response): Promise<void> => {
+        try {
+            const programShortName = req.body.programName;
+            const program = await ProgramModel.findOne({programShortName}).exec();
+
+            if (!program) {
+                res.status(404).send();
+                return;
+            }
+
+            res.json({
+                status: 'success',
+                data: program,
+            });
+        } catch (error) {
+            res.status(500).json({
+                status: "error",
+                error: error
+            })
+        }
+    }
+)
+
+router.post(
+    '/upload',
+    async (req: any, res: Response): Promise<void> => {
         try {
             // @ts-ignore
             const array = await fileToJson(req.file.path);
@@ -27,15 +54,13 @@ class UploadExcelController {
                 status: 'True',
                 data
             })
-        }catch (error){
+        } catch (error) {
             res.status(500).json({
                 status: 'error',
                 message: error,
             });
-
         }
-
     }
-}
+);
 
-export const UploadExcel = new UploadExcelController();
+export default router;
