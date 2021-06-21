@@ -1,18 +1,30 @@
 import './App.css';
 import React from 'react';
-import {FullPageWrapper} from './hoc/fullPageWrapper';
-import PageOne from "./Components/slidesDown/PageOne";
+import { Route } from "react-router-dom";
+import {fetchProgram} from "./redux/action/program";
+import Page from "./page/Page";
+import {useDispatch} from "react-redux";
 
 function App() {
+    const dispatch = useDispatch();
+    const fetchData = (programName) => {
+        dispatch(fetchProgram(programName))
+    }
   return (
-    <div className="App">
-      <FullPageWrapper>
-        <PageOne content={'Ну как ono lol?'}/>
-        <PageOne content={'Кайф имеешь?'}/>
-        <PageOne content={'и я не имею'}/>
-      </FullPageWrapper>
-    </div>
+      <Route path="/:programName"
+             exact
+             render={
+                 (props) =>
+                     <Page
+                         {...props}
+                         stateHandler={() => fetchData(props.match.params.programName)}
+                     />
+             }
+      />
+
+
   );
 }
 
 export default App;
+
